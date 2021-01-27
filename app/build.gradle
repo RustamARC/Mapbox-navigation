@@ -1,0 +1,82 @@
+import org.gradle.api.internal.DependencyClassPathProvider
+
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+
+    compileSdkVersion AppConfig.compileSdkVersion
+    buildToolsVersion AppConfig.buildToolsVersion
+
+    defaultConfig {
+        applicationId AppConfig.applicationId
+        minSdkVersion AppConfig.minSdkVersion
+        targetSdkVersion AppConfig.targetSdkVersion
+        versionCode AppConfig.versionCode
+        versionName AppConfig.versionName
+        testInstrumentationRunner AppConfig.testInstrumentationRunner
+    }
+
+    def localProperties = new Properties()
+    localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
+    lintOptions {
+        abortOnError false
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField('String', "MAPBOX_ACCESS_TOKEN", localProperties['MAPBOX_ACCESS_TOKEN'])
+            buildConfigField('String', "MAPBOX_SECRET_TOKEN", localProperties['MAPBOX_SECRET_TOKEN'])
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField('String', "MAPBOX_ACCESS_TOKEN", localProperties['MAPBOX_ACCESS_TOKEN'])
+            buildConfigField('String', "MAPBOX_SECRET_TOKEN", localProperties['MAPBOX_SECRET_TOKEN'])
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation(Dependencies.kotlin_stdlib)
+    implementation(Dependencies.mapbox_android_sdk)
+    implementation(Dependencies.mapbox_navigation_ui)
+
+    implementation(Dependencies.constraintlayout)
+    implementation(Dependencies.core_ktx)
+    implementation(Dependencies.appcompat)
+    implementation(Dependencies.material)
+
+    implementation(Dependencies.activity_ktx)
+    implementation(Dependencies.lifecycle_runtime)
+    implementation(Dependencies.lifecyle_runtime_ktx)
+
+    implementation(Dependencies.hilt_android)
+    implementation(Dependencies.hilt_lifecycle_viewmodel)
+    kapt(Dependencies.hilt_compiler)
+    kapt(Dependencies.hilt_android_compiler)
+
+    implementation(Dependencies.easypermission)
+
+
+    testImplementation(Dependencies.junit)
+    androidTestImplementation(Dependencies.test_ext)
+    androidTestImplementation(Dependencies.espreso_core)
+
+
+}
