@@ -73,6 +73,10 @@ dependencies {
 
     implementation(Dependencies.easypermission)
 
+    implementation(Dependencies.room_runtime)
+    kapt(Dependencies.room_compiler)
+    implementation(Dependencies.room_ktx)
+
 
     testImplementation(Dependencies.junit)
     androidTestImplementation(Dependencies.test_ext)

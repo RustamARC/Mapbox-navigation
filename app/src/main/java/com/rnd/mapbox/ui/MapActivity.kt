@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -23,6 +24,7 @@ import com.mapbox.api.directions.v5.models.DirectionsResponse
 import com.mapbox.api.directions.v5.models.DirectionsRoute
 import com.mapbox.geojson.Feature
 import com.mapbox.geojson.Point
+import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions
@@ -38,14 +40,21 @@ import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions
 import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute
+import com.mapbox.services.android.navigation.v5.navigation.MapboxNavigation
+import com.rnd.mapbox.BuildConfig
 import com.rnd.mapbox.R
 import com.rnd.mapbox.constant.Constant.REQUEST_CODE_LOCATION_PERMISSION
+import com.rnd.mapbox.model.Navigation
 import com.rnd.mapbox.utils.EasyPermissionHandler
 import com.rnd.mapbox.utils.RouteManager
 import com.rnd.mapbox.utils.toLatLng
 import com.rnd.mapbox.utils.toPoint
 import com.rnd.mapbox.viewmodel.MainViewModel
+import com.rnd.mapbox.viewmodel.NavigationViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import retrofit2.Response
@@ -69,6 +78,9 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, MapboxMap.OnMapClic
     @Inject
     lateinit var locationEngineRequest: LocationEngineRequest
     private val mainViewModel: MainViewModel by viewModels()
+
+    private val navigationViewModel: NavigationViewModel by viewModels()
+
     private val DEFAULT_INTERVAL_IN_MILLISECONDS = 1000L
     private val DEFAULT_MAX_WAIT_TIME = DEFAULT_INTERVAL_IN_MILLISECONDS * 5
 
@@ -289,6 +301,16 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, MapboxMap.OnMapClic
     override fun onSuccess(result: LocationEngineResult?) {
         result?.lastLocation?.let {
             mapboxMap.locationComponent.forceLocationUpdate(it)
+
+            val navigation = Navigation(
+                mapView?.viewContent,
+                System.currentTimeMillis(),
+                Point.fromLngLat(it.longitude, it.latitude)
+            )
+            CoroutineScope(Dispatchers.Main).launch {
+                navigationViewModel.navigationRepository.navigationDao.insertNavigation(navigation)
+                Log.e("Saving to db", navigation.toString())
+            }
 //            setCameraPosition(it)
         }
     }

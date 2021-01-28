@@ -1,6 +1,9 @@
 package com.rnd.mapbox.di
 
 import android.app.Application
+import android.content.Context
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.mapbox.android.core.location.LocationEngine
 import com.mapbox.android.core.location.LocationEngineProvider
 import com.mapbox.android.core.location.LocationEngineRequest
@@ -13,16 +16,29 @@ import com.mapbox.services.android.navigation.v5.navigation.MapboxNavigation
 import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute
 import com.rnd.mapbox.R
 import com.rnd.mapbox.constant.Constant
+import com.rnd.mapbox.db.NavigationDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.lang.Appendable
 import javax.inject.Singleton
 
 @Module
 @InstallIn(ApplicationComponent::class)
 object AppModule {
+
+    @Singleton
+    @Provides
+    fun providesNavigationDatabase(
+        @ApplicationContext app: Context
+    ) = Room.databaseBuilder(app, NavigationDatabase::class.java, Constant.DATABASE_NAME).build()
+
+    @Singleton
+    @Provides
+    fun providesNavigationDao(navigationDatabase: NavigationDatabase) =
+        navigationDatabase.getNavigationDao()
 
     @Singleton
     @Provides
