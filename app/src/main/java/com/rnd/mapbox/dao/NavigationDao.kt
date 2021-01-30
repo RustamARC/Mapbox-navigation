@@ -12,7 +12,7 @@ interface NavigationDao {
     @Delete
     suspend fun deleteNavigation(navigation: Navigation)
 
-    @Query("Select * from track_navigation ORDER BY timestamp DESC")
+    @Query("Select * from navigation_location ORDER BY timestamp DESC")
     fun getNavigationList(): LiveData<List<Navigation>>
 
 }

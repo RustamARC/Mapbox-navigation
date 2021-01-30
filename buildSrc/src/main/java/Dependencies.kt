@@ -1,8 +1,9 @@
 object Dependencies {
 
     const val mapbox_android_sdk = "com.mapbox.mapboxsdk:mapbox-android-sdk:${Versions.mapbox}"
-    const val mapbox_navigation_ui =
+    const val mapbox_android_navigation_ui =
         "com.mapbox.mapboxsdk:mapbox-android-navigation-ui:${Versions.mapbox_navigation}"
+    const val mapbox_navigation_ui = "com.mapbox.navigation:ui:${Versions.mapbox_navigation_ui}"
 
     // Activity KTX for viewModels()
     const val activity_ktx = "androidx.activity:activity-ktx:${Versions.activity_ktx}"

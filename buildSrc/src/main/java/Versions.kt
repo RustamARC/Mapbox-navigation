@@ -1,4 +1,5 @@
 object Versions {
+    const val mapbox_navigation_ui = "1.1.0"
     const val easypermission = "3.0.0"
     const val navigation_fragment_ktx = "2.3.0"
     const val activity_ktx = "1.1.0"
