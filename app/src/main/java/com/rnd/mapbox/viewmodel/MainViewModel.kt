@@ -20,6 +20,7 @@ class MainViewModel @ViewModelInject constructor(private val mainRepository: Mai
     lateinit var mapboxMap: MapboxMap
     var currentRoute: DirectionsRoute? = null
     var mapView: MapView? = null
+    var isLoading = false
 
     fun initLocationEngine(application: Application) {
         mainRepository.initLocationEngine(application)

@@ -155,6 +155,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, MapboxMap.OnMapClic
             val navigationMapRoute = RouteManager(this)
             navigationMapRoute.getRoute(originPoint, destinationPoint)
             mainViewModel.currentRoute = null
+            mainViewModel.isLoading = true
             binding.viewModel = mainViewModel
             binding.invalidateAll()
         }
@@ -320,16 +321,23 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, MapboxMap.OnMapClic
                 Toast.LENGTH_SHORT
             ).show()
         } else if (response.body()!!.routes().size < 1) {
+
             Toast.makeText(
                 this@MapActivity,
                 "No routes found",
                 Toast.LENGTH_SHORT
             ).show()
+
+            mainViewModel.isLoading = false
+            binding.viewModel = mainViewModel
+            binding.invalidateAll()
+
             return
         }
 
         currentRoute = response.body()!!.routes()[0]
         mainViewModel.currentRoute = currentRoute
+        mainViewModel.isLoading = false
         binding.viewModel = mainViewModel
         binding.invalidateAll()
         if (navigationMapRoute != null) {

@@ -6,6 +6,7 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-android-extensions'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.secrets_gradle_plugin' version '0.4'
 }
 
 android {
@@ -35,6 +36,7 @@ android {
         debug {
             buildConfigField('String', "MAPBOX_ACCESS_TOKEN", localProperties['MAPBOX_ACCESS_TOKEN'])
             buildConfigField('String', "MAPBOX_SECRET_TOKEN", localProperties['MAPBOX_SECRET_TOKEN'])
+            buildConfigField('String', "GOOGLE_MAPS_API_KEY", localProperties['GOOGLE_MAPS_API_KEY'])
         }
         release {
             minifyEnabled false
@@ -42,6 +44,7 @@ android {
 
             buildConfigField('String', "MAPBOX_ACCESS_TOKEN", localProperties['MAPBOX_ACCESS_TOKEN'])
             buildConfigField('String', "MAPBOX_SECRET_TOKEN", localProperties['MAPBOX_SECRET_TOKEN'])
+            buildConfigField('String', "GOOGLE_MAPS_API_KEY", localProperties['GOOGLE_MAPS_API_KEY'])
         }
     }
     compileOptions {
@@ -70,6 +73,17 @@ dependencies {
 
     implementation(Dependencies.hilt_android)
     implementation(Dependencies.hilt_lifecycle_viewmodel)
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.navigation:navigation-fragment:2.3.3'
+    implementation 'androidx.navigation:navigation-ui:2.3.3'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.3'
+
     kapt(Dependencies.hilt_compiler)
     kapt(Dependencies.hilt_android_compiler)
 
@@ -83,6 +97,9 @@ dependencies {
     testImplementation(Dependencies.junit)
     androidTestImplementation(Dependencies.test_ext)
     androidTestImplementation(Dependencies.espreso_core)
+
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.libraries.places:places:2.4.0'
 
 
 }

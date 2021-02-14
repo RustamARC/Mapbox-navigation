@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toTopOf="parent"
+            tools:context=".splash.GoogleMapActivity" />
+
+        <com.rnd.mapbox.utils.CircleOverlayView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mcv_your_location"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="20dp"
+            map:cardBackgroundColor="@color/white"
+            map:cardCornerRadius="10dp"
+            map:cardElevation="5dp"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toTopOf="parent"
+            map:layout_constraintVertical_bias=".8">
+
+
+            <TextView
+                android:id="@+id/tv_your_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dp"
+                android:contentDescription="Address"
+                android:text="Your location!"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:contentDescription="Address"
+                android:lines="2"
+                android:text="Address"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toBottomOf="@id/mcv_your_location">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mcv_taxi"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                map:cardBackgroundColor="@color/white"
+                map:cardCornerRadius="10dp"
+                map:cardElevation="5dp"
+                map:layout_constraintBottom_toBottomOf="parent"
+                map:layout_constraintEnd_toStartOf="@id/mcv_food"
+                map:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:drawableTop="@drawable/ic_taxi"
+                    android:gravity="center"
+                    android:text="Taxi"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mcv_food"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                map:cardBackgroundColor="@color/white"
+                map:cardCornerRadius="10dp"
+                map:cardElevation="5dp"
+                map:layout_constraintBottom_toBottomOf="parent"
+                map:layout_constraintEnd_toStartOf="@id/mcv_both"
+                map:layout_constraintStart_toEndOf="@id/mcv_taxi">
+
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:drawableTop="@drawable/ic_food"
+                    android:gravity="center"
+                    android:text="Food"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mcv_both"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                map:cardBackgroundColor="@color/white"
+                map:cardCornerRadius="10dp"
+                map:cardElevation="5dp"
+                map:layout_constraintBottom_toBottomOf="parent"
+                map:layout_constraintEnd_toEndOf="parent"
+                map:layout_constraintStart_toEndOf="@id/mcv_food">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:drawableTop="@drawable/ic_taxi"
+                    android:gravity="center"
+                    android:text="Both"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
