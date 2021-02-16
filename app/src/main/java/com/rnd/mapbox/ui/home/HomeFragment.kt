@@ -14,14 +14,19 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.mapbox.api.directions.v5.models.DirectionsResponse
 import com.rnd.mapbox.R
 import com.rnd.mapbox.databinding.FragmentHomeBinding
+import com.rnd.mapbox.utils.RouteManager
+import retrofit2.Response
 
 class HomeFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var homeViewModel: HomeViewModel
     lateinit var binding: FragmentHomeBinding
+    private var desMarker: Marker? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,6 +40,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 //        binding.viewModel = homeViewModel
         binding.map.getMapAsync(this)
         binding.map.onCreate(savedInstanceState)
+        binding.btnNavigate.setOnClickListener {
+
+
+        }
         return binding.root
     }
 
@@ -62,7 +71,15 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         })
         val cameraPosition: CameraPosition =
             CameraPosition.Builder().target(homeViewModel.latLng).zoom(18f).build()
-        googleMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+        googleMap?.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+
+        googleMap?.setOnMapClickListener {
+            desMarker?.remove()
+            desMarker =
+                googleMap.addMarker(MarkerOptions().position(it).title("Your Destination"))
+
+
+        }
 
     }
 
