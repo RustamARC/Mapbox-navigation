@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.rnd.mapbox.ui.dashboard.DashboardFragment"
+        android:name="com.rnd.mapbox.ui.queue.QueueFragment"
         android:label="@string/title_queue"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_queue" />
 
     <fragment
         android:id="@+id/navigation_notifications"
