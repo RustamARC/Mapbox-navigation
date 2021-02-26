@@ -18,6 +18,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.MarginPageTransformer
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationListener
 import com.google.android.gms.location.LocationServices
@@ -31,6 +32,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.rnd.mapbox.R
 import com.rnd.mapbox.databinding.FragmentHomeBinding
 import com.rnd.mapbox.ui.MapActivity
+import com.rnd.mapbox.ui.home.viewpager.ViewPagerAdapter
 import com.rnd.mapbox.utils.PermissionUtils
 import com.rnd.mapbox.utils.toLatLng
 
@@ -78,6 +80,17 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
             }
 
         }
+
+        binding.btnRate.setOnClickListener {
+            binding.rateVP.visibility = View.VISIBLE
+            binding.btnSearch.visibility = View.GONE
+            binding.btnProfile.visibility = View.GONE
+            binding.btnRate.visibility = View.GONE
+            binding.rateVP.setPageTransformer(MarginPageTransformer(5))
+            binding.rateVP.adapter = ViewPagerAdapter()
+
+        }
+
         return binding.root
     }
 
