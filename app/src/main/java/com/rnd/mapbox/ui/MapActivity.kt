@@ -17,6 +17,7 @@ import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.ActivityNavigator
 import com.mapbox.android.core.location.LocationEngine
 import com.mapbox.android.core.location.LocationEngineCallback
 import com.mapbox.android.core.location.LocationEngineRequest
@@ -25,8 +26,10 @@ import com.mapbox.api.directions.v5.models.DirectionsResponse
 import com.mapbox.api.directions.v5.models.DirectionsRoute
 import com.mapbox.geojson.Feature
 import com.mapbox.geojson.Point
+import com.mapbox.mapboxsdk.camera.CameraPosition
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.geometry.LatLng
+import com.mapbox.mapboxsdk.location.LocationComponent
 import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions
 import com.mapbox.mapboxsdk.location.modes.CameraMode
 import com.mapbox.mapboxsdk.location.modes.RenderMode
@@ -218,9 +221,22 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, MapboxMap.OnMapClic
             locationComponent.isLocationComponentEnabled = true
             locationComponent.cameraMode = CameraMode.TRACKING
             locationComponent.renderMode = RenderMode.GPS
-
             initLocationEngine()
         }
+    }
+
+    private fun animateCamera(location: Location) {
+
+        val position: CameraPosition = CameraPosition.Builder()
+            .target(location.toLatLng()) // Sets the new camera position
+            .zoom(12.0) // Sets the zoom
+            /*  .bearing(180.0) // Rotate the camera
+              .tilt(30.0) // Set the camera tilt*/
+            .build() // Creates a CameraPosition from the builder
+        mapboxMap.animateCamera(
+            CameraUpdateFactory
+                .newCameraPosition(position), 2000
+        )
     }
 
     override fun onStart() {
@@ -304,6 +320,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, MapboxMap.OnMapClic
     override fun onSuccess(result: LocationEngineResult?) {
         result?.lastLocation?.let {
             mapboxMap.locationComponent.forceLocationUpdate(it)
+            animateCamera(it)
         }
     }
 

@@ -3,17 +3,21 @@ package com.rnd.mapbox.ui.home
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationListener
 import com.google.android.gms.location.LocationServices
@@ -26,6 +30,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.rnd.mapbox.R
 import com.rnd.mapbox.databinding.FragmentHomeBinding
+import com.rnd.mapbox.ui.MapActivity
 import com.rnd.mapbox.utils.PermissionUtils
 import com.rnd.mapbox.utils.toLatLng
 
@@ -39,6 +44,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
     private var googleMap: GoogleMap? = null
 
     // The entry point to the Fused Location Provider.
+    @SuppressLint("MissingPermission")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,7 +60,22 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
         binding.map.getMapAsync(this)
         binding.map.onCreate(savedInstanceState)
         binding.btnNavigate.setOnClickListener {
+            val intent = Intent(requireContext(), MapActivity::class.java)
+            startActivity(intent)
+        }
 
+        binding.btnProfile.setOnClickListener {
+            findNavController().navigate(R.id.navigation_notifications)
+        }
+        binding.btnMyLocation.setOnClickListener {
+
+            val locationManager: LocationManager =
+                requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            val selfLocation: Location? = locationManager
+                .getLastKnownLocation(LocationManager.PASSIVE_PROVIDER)
+            selfLocation?.let {
+                navigateCamera(it)
+            }
 
         }
         return binding.root
@@ -92,14 +113,14 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
     private fun navigateCamera(it: Location?) {
         it?.let {
-            googleMap?.addMarker(
-                MarkerOptions().position(
-                    LatLng(
-                        it.latitude,
-                        it.longitude
-                    )
-                )
-            )?.title = "Your location!"
+            /* googleMap?.addMarker(
+                 MarkerOptions().position(
+                     LatLng(
+                         it.latitude,
+                         it.longitude
+                     )
+                 )
+             )?.title = "Your location!"*/
 
             val cameraPosition: CameraPosition =
                 CameraPosition.Builder().target(
@@ -136,6 +157,18 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
         }
         googleMap = gMap
         googleMap?.isMyLocationEnabled = true
+        googleMap?.uiSettings?.isMyLocationButtonEnabled = false
+        /* val locationButton =
+             (binding.map.findViewById<View>(Integer.parseInt("1")).parent as View).findViewById<View>(
+                 Integer.parseInt("2")
+             )
+         val rlp = locationButton.layoutParams as (RelativeLayout.LayoutParams)
+         // position on right bottom
+         rlp.width=100
+         rlp.height=100
+         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
+         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
+         rlp.setMargins(0, 0, 50, 150)*/
 
         googleMap?.setOnMapClickListener {
             desMarker?.remove()

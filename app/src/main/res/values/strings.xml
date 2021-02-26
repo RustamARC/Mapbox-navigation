@@ -17,6 +17,7 @@
     <string name="user_location_permission_not_granted">Permission denied</string>
     <string name="str_start_navigation">Start navigation</string>
     <string name="str_navigate">Navigate</string>
+    <string name="str_go">GO</string>
     <string name="title_activity_google_map">Map</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
