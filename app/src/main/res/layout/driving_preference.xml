@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:background="@color/md_grey_400">
+
+        <RelativeLayout
+            android:id="@+id/rlHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:minHeight="50dp"
+            android:padding="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/icon_close"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvQuery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@id/tvClose"
+                android:gravity="center"
+                android:text="@string/str_driving_preference"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tvOption"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingStart="15dp"
+            android:paddingEnd="10dp"
+            android:text="@string/open_to_all_trips"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rlHeader" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clTripOption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:padding="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvOption">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mcv_taxi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_toStartOf="@id/mcv_food"
+                    android:checkable="true"
+                    android:minWidth="70dp"
+                    android:padding="5dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="2dp"
+                    app:checkedIconSize="15dp"
+                    app:checkedIconTint="@color/mapboxBlue">
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/taxi"
+                            style="@style/textIconStyle"
+                            android:text="@string/icon_taxi" />
+
+                        <TextView
+                            android:id="@+id/tvTaxi"
+                            style="@style/textStyle"
+                            android:text="@string/str_taxi" />
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mcv_food"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="5dp"
+                    android:checkable="true"
+                    android:minWidth="70dp"
+                    android:padding="5dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="2dp"
+                    app:checkedIconSize="15dp"
+                    app:checkedIconTint="@color/mapboxBlue">
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/food"
+                            style="@style/textIconStyle"
+                            android:text="@string/icon_taxi" />
+
+                        <TextView
+                            android:id="@+id/tvfood"
+                            style="@style/textStyle"
+                            android:text="@string/str_food" />
+                    </LinearLayout>
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mcv_both"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_toEndOf="@id/mcv_food"
+                    android:checkable="true"
+                    android:minWidth="70dp"
+                    android:padding="5dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="2dp"
+                    app:checkedIconSize="15dp"
+                    app:checkedIconTint="@color/mapboxBlue">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/both"
+                            style="@style/textIconStyle"
+                            android:text="@string/icon_taxi" />
+
+                        <TextView
+                            android:id="@+id/tvboth"
+                            style="@style/textStyle"
+                            android:text="@string/str_both" />
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/clTripOption"
+            app:layout_constraintVertical_bias=".7">
+
+            <Button
+                android:id="@+id/btnReset"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight=".4"
+                android:gravity="center"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                android:text="@string/str_reset"
+                android:textColor="@color/mapboxGrayLight"
+                app:backgroundTint="@color/white"
+                app:cardCornerRadius="1dp"
+                app:cardElevation="2dp" />
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight=".4"
+                android:gravity="center"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                android:text="@string/str_save"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/mapboxBlue"
+                app:cardCornerRadius="1dp"
+                app:cardElevation="2dp" />
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

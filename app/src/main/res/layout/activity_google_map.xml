@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -20,16 +20,20 @@
 
         <com.rnd.mapbox.utils.CircleOverlayView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/mcv_your_location"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:minHeight="80dp"
+            android:padding="5dp"
             map:cardBackgroundColor="@color/white"
-            map:cardCornerRadius="10dp"
-            map:cardElevation="5dp"
+            map:cardCornerRadius="5dp"
+            map:cardElevation="2dp"
             map:layout_constraintBottom_toBottomOf="parent"
             map:layout_constraintEnd_toEndOf="parent"
             map:layout_constraintStart_toStartOf="parent"
@@ -46,7 +50,7 @@
                 android:contentDescription="Address"
                 android:text="Your location!"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <FrameLayout
@@ -85,54 +89,69 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/mcv_taxi"
                 android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_margin="10dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:minWidth="70dp"
                 android:padding="5dp"
                 map:cardBackgroundColor="@color/white"
-                map:cardCornerRadius="10dp"
-                map:cardElevation="5dp"
+                map:cardCornerRadius="5dp"
+                map:cardElevation="2dp"
                 map:layout_constraintBottom_toBottomOf="parent"
                 map:layout_constraintEnd_toStartOf="@id/mcv_food"
                 map:layout_constraintStart_toStartOf="parent">
 
-                <TextView
-                    android:layout_width="100dp"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:drawableTop="@drawable/ic_taxi"
+                    android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="Taxi"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:orientation="vertical">
 
+                    <TextView
+                        android:id="@+id/taxi"
+                        style="@style/textIconStyle"
+                        android:text="@string/icon_taxi" />
+
+                    <TextView
+                        android:id="@+id/tvTaxi"
+                        style="@style/textStyle"
+                        android:text="Taxi" />
+                </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/mcv_food"
                 android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_margin="10dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:minWidth="70dp"
                 android:padding="5dp"
                 map:cardBackgroundColor="@color/white"
-                map:cardCornerRadius="10dp"
-                map:cardElevation="5dp"
+                map:cardCornerRadius="5dp"
+                map:cardElevation="2dp"
                 map:layout_constraintBottom_toBottomOf="parent"
                 map:layout_constraintEnd_toStartOf="@id/mcv_both"
                 map:layout_constraintStart_toEndOf="@id/mcv_taxi">
 
 
-                <TextView
-                    android:layout_width="100dp"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:drawableTop="@drawable/ic_food"
+                    android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="Food"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/food"
+                        style="@style/textIconStyle"
+                        android:text="@string/icon_taxi" />
+
+                    <TextView
+                        android:id="@+id/tvfood"
+                        style="@style/textStyle"
+                        android:text="Food" />
+                </LinearLayout>
 
 
             </com.google.android.material.card.MaterialCardView>
@@ -140,26 +159,34 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/mcv_both"
                 android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_margin="10dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:minWidth="70dp"
                 android:padding="5dp"
                 map:cardBackgroundColor="@color/white"
-                map:cardCornerRadius="10dp"
-                map:cardElevation="5dp"
+                map:cardCornerRadius="5dp"
+                map:cardElevation="2dp"
                 map:layout_constraintBottom_toBottomOf="parent"
                 map:layout_constraintEnd_toEndOf="parent"
                 map:layout_constraintStart_toEndOf="@id/mcv_food">
 
-                <TextView
-                    android:layout_width="100dp"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:drawableTop="@drawable/ic_taxi"
+                    android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="Both"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/both"
+                        style="@style/textIconStyle"
+                        android:text="@string/icon_taxi" />
+
+                    <TextView
+                        android:id="@+id/tvboth"
+                        style="@style/textStyle"
+                        android:text="Both" />
+                </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 

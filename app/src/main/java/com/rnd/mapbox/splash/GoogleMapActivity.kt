@@ -3,16 +3,15 @@ package com.rnd.mapbox.splash
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Typeface
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -28,11 +27,11 @@ import com.google.android.libraries.places.api.net.PlacesClient
 import com.rnd.mapbox.BuildConfig
 import com.rnd.mapbox.R
 import com.rnd.mapbox.databinding.ActivityGoogleMapBinding
+import com.rnd.mapbox.ui.BaseActivity
 import com.rnd.mapbox.ui.MainActivity
-import com.rnd.mapbox.ui.NavigationActivity
 import java.util.*
 
-class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback, View.OnClickListener {
+class GoogleMapActivity : BaseActivity(), OnMapReadyCallback, View.OnClickListener {
     private var map: GoogleMap? = null
     private var cameraPosition: CameraPosition? = null
 
@@ -52,6 +51,11 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback, View.OnClickL
         binding = DataBindingUtil.setContentView(this, R.layout.activity_google_map)
         Places.initialize(applicationContext, BuildConfig.GOOGLE_MAPS_API_KEY)
         placesClient = Places.createClient(this)
+
+        val font = Typeface.createFromAsset(assets, "fonts/icomoon.ttf")
+        binding.taxi.typeface = font
+        binding.food.typeface = font
+        binding.both.typeface = font
 
         // Construct a FusedLocationProviderClient.
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
@@ -114,7 +118,13 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback, View.OnClickL
                         )
                     )
                     addMarker(it)
-                    fetchAddress(LatLng(it.latitude, it.longitude))
+                    connectionStateMonitor?.hasNetworkConnection()?.let { connected ->
+                        if (connected) {
+                            fetchAddress(LatLng(it.latitude, it.longitude))
+                        } else {
+                            onNetworkDisconnected()
+                        }
+                    }
                 }
             }
 
@@ -147,9 +157,8 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback, View.OnClickL
     }
 
     private fun fetchAddress(defaultLocation: LatLng) {
-        var geocoder: Geocoder
         val addresses: List<Address>?
-        geocoder = Geocoder(this, Locale.getDefault());
+        val geocoder = Geocoder(this, Locale.getDefault());
         binding.progress.visibility = View.GONE
         addresses = geocoder.getFromLocation(
             defaultLocation.latitude,
@@ -244,14 +253,6 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback, View.OnClickL
         private const val DEFAULT_ZOOM = 15
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
 
-        // Keys for storing activity state.
-        // [START maps_current_place_state_keys]
-        private const val KEY_CAMERA_POSITION = "camera_position"
-        private const val KEY_LOCATION = "location"
-        // [END maps_current_place_state_keys]
-
-        // Used for selecting the current place.
-        private const val M_MAX_ENTRIES = 5
     }
 
     override fun onClick(v: View?) {
@@ -273,7 +274,6 @@ class GoogleMapActivity : AppCompatActivity(), OnMapReadyCallback, View.OnClickL
     }
 
     private fun navigateToHome() {
-
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }

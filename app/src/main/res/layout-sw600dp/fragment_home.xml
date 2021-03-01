@@ -60,8 +60,8 @@
 
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:gravity="center"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
@@ -75,15 +75,15 @@
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/btnNavigate"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_marginBottom="8dp"
             android:gravity="center"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
             android:text="@string/str_go"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:backgroundTint="@color/mapboxBlue"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -99,14 +99,14 @@
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
             android:id="@+id/btnMyLocation"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_marginBottom="10dp"
             android:gravity="center"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
             android:text="@string/icon_my_location"
-            android:textSize="16sp"
+            android:textSize="20sp"
             app:backgroundTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -118,14 +118,14 @@
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
             android:id="@+id/btnSafety"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_marginBottom="10dp"
             android:gravity="center"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
             android:text="@string/icon_logout"
-            android:textSize="16sp"
+            android:textSize="20sp"
             app:backgroundTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

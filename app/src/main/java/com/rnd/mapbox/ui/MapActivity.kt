@@ -63,7 +63,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class MapActivity : AppCompatActivity(), OnMapReadyCallback, MapboxMap.OnMapClickListener,
+class MapActivity : BaseActivity(), OnMapReadyCallback, MapboxMap.OnMapClickListener,
     EasyPermissions.PermissionCallbacks, LocationEngineCallback<LocationEngineResult?>,
     RouteManager.OnFindRouteLitener, ClickHandler, OnNavigationReadyCallback, NavigationListener {
     var hasStartedSnapshotGeneration: Boolean = false

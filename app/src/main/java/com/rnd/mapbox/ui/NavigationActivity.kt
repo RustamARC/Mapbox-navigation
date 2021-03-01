@@ -34,7 +34,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class NavigationActivity : AppCompatActivity(), OnNavigationReadyCallback, NavigationListener,
+class NavigationActivity : BaseActivity(), OnNavigationReadyCallback, NavigationListener,
     RouteListener,
     ProgressChangeListener, RawLocationListener {
 

@@ -24,4 +24,37 @@
     <string name="title_queue">Queue</string>
     <string name="title_account">Account</string>
     <string name="title_more">More</string>
+    <string name="title_activity_base">BaseActivity</string>
+
+
+    <!--icons-->
+    <string name="icon_taxi">&#xe90a;</string>
+    <string name="icon_my_location">&#xe916;</string>
+    <string name="icon_left_arrow">&#xe923;</string>
+    <string name="icon_pin">&#xe928;</string>
+    <string name="icon_profile">&#xe929;</string>
+    <string name="icon_queue">&#xee907;</string>
+    <string name="icon_close">&#xe915;</string>
+    <string name="icon_home">&#xe921;</string>
+    <string name="icon_left_arrow_nobar">&#xe922;</string>
+    <string name="icon_open_menu">&#xe97c;</string>
+    <string name="icon_compass">&#xe97f;</string>
+    <string name="icon_eye">&#xe9ce;</string>
+    <string name="icon_conversation">&#xe94a;</string>
+    <string name="icon_logout">&#xe924;</string>
+    <string name="icon_checked">&#xe913;</string>
+
+    <!--icon end-->
+
+    <string name="str_you_are_offline">You\'re offline</string>
+    <string name="str_driving_preference">Driving Preferences</string>
+    <string name="open_to_all_trips">Open to all trips</string>
+    <string name="str_save">SAVE</string>
+    <string name="str_reset">RESET</string>
+    <string name="str_taxi">Taxi</string>
+    <string name="str_food">Food</string>
+    <string name="str_both">Both</string>
+    <string name="str_finding_trips">Finding trips</string>
+
+
 </resources>

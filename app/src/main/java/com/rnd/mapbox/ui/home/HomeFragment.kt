@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Typeface
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
@@ -44,6 +45,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
     lateinit var binding: FragmentHomeBinding
     private var desMarker: Marker? = null
     private var googleMap: GoogleMap? = null
+    lateinit var mapInterationListener: MapInterationListener
 
     // The entry point to the Fused Location Provider.
     @SuppressLint("MissingPermission")
@@ -57,18 +59,23 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-//        binding.viewModel = homeViewModel
-        // Construct a FusedLocationProviderClient.
         binding.map.getMapAsync(this)
         binding.map.onCreate(savedInstanceState)
+        val font = Typeface.createFromAsset(requireContext().assets, "fonts/icomoon.ttf")
+        binding.btnMyLocation.typeface = font
+        binding.btnSafety.typeface = font
         binding.btnNavigate.setOnClickListener {
-            val intent = Intent(requireContext(), MapActivity::class.java)
-            startActivity(intent)
+            /* val intent = Intent(requireContext(), MapActivity::class.java)
+             startActivity(intent)*/
+            mapInterationListener.onGoClicked()
+
+        }
+        binding.btnSafety.setOnClickListener {
+            mapInterationListener.onSafetyClicked()
+
         }
 
-        binding.btnProfile.setOnClickListener {
-            findNavController().navigate(R.id.navigation_notifications)
-        }
+
         binding.btnMyLocation.setOnClickListener {
 
             val locationManager: LocationManager =
@@ -83,15 +90,22 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
         binding.btnRate.setOnClickListener {
             binding.rateVP.visibility = View.VISIBLE
-            binding.btnSearch.visibility = View.GONE
-            binding.btnProfile.visibility = View.GONE
             binding.btnRate.visibility = View.GONE
             binding.rateVP.setPageTransformer(MarginPageTransformer(5))
-            binding.rateVP.adapter = ViewPagerAdapter()
+            binding.rateVP.adapter = ViewPagerAdapter(requireContext())
 
         }
 
         return binding.root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is MapInterationListener) {
+            mapInterationListener = context
+        } else {
+            throw RuntimeException("Must implement MapInterationListener in your activity")
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -171,23 +185,13 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
         googleMap = gMap
         googleMap?.isMyLocationEnabled = true
         googleMap?.uiSettings?.isMyLocationButtonEnabled = false
-        /* val locationButton =
-             (binding.map.findViewById<View>(Integer.parseInt("1")).parent as View).findViewById<View>(
-                 Integer.parseInt("2")
-             )
-         val rlp = locationButton.layoutParams as (RelativeLayout.LayoutParams)
-         // position on right bottom
-         rlp.width=100
-         rlp.height=100
-         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
-         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
-         rlp.setMargins(0, 0, 50, 150)*/
 
         googleMap?.setOnMapClickListener {
-            desMarker?.remove()
-            desMarker =
-                googleMap?.addMarker(MarkerOptions().position(it).title("Your Destination"))
-
+            /*  desMarker?.remove()
+              desMarker =
+                  googleMap?.addMarker(MarkerOptions().position(it).title("Your Destination"))*/
+            binding.btnRate.visibility = View.VISIBLE
+            binding.rateVP.visibility = View.GONE
 
         }
 
@@ -210,5 +214,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
     override fun onLocationChanged(p0: Location?) {
         Log.e("onLocationChanged: ", p0?.toLatLng().toString())
+    }
+
+    interface MapInterationListener {
+        fun onGoClicked()
+        fun onSafetyClicked()
     }
 }

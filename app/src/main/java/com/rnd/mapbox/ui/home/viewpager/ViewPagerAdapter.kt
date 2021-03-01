@@ -1,5 +1,7 @@
 package com.rnd.mapbox.ui.home.viewpager
 
+import android.content.Context
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rnd.mapbox.R
 import kotlinx.android.synthetic.main.item_page.view.*
 
-class ViewPagerAdapter : RecyclerView.Adapter<PagerVH>() {
+class ViewPagerAdapter(context: Context) : RecyclerView.Adapter<PagerVH>() {
 
     //array of colors to change the background color of screen
     private val colors = intArrayOf(
@@ -23,6 +25,12 @@ class ViewPagerAdapter : RecyclerView.Adapter<PagerVH>() {
 
     //binding the screen with view
     override fun onBindViewHolder(holder: PagerVH, position: Int) = holder.itemView.run {
+
+        val font = Typeface.createFromAsset(context.assets, "fonts/icomoon.ttf")
+
+        tvEye.typeface = font
+        tvQuery.typeface = font
+
         if (position == 0) {
             tvRate.text = "$0.00"
             lasttrip.text = "Today"
