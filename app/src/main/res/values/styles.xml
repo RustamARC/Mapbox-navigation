@@ -51,4 +51,13 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
+    <style name="CircularDeterminateProgressBar">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/circular_progress</item>
+    </style>
+
+    <style name="MaterialCarViewCircle">
+        <item name="cornerSize">50%</item>
+    </style>
+
 </resources>

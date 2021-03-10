@@ -29,6 +29,7 @@ import com.rnd.mapbox.R
 import com.rnd.mapbox.databinding.ActivityGoogleMapBinding
 import com.rnd.mapbox.ui.BaseActivity
 import com.rnd.mapbox.ui.MainActivity
+import com.rnd.mapbox.utils.toast
 import java.util.*
 
 class GoogleMapActivity : BaseActivity(), OnMapReadyCallback, View.OnClickListener {
@@ -157,24 +158,28 @@ class GoogleMapActivity : BaseActivity(), OnMapReadyCallback, View.OnClickListen
     }
 
     private fun fetchAddress(defaultLocation: LatLng) {
-        val addresses: List<Address>?
-        val geocoder = Geocoder(this, Locale.getDefault());
-        binding.progress.visibility = View.GONE
-        addresses = geocoder.getFromLocation(
-            defaultLocation.latitude,
-            defaultLocation.longitude,
-            1
-        ); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+        try {
+            val addresses: List<Address>?
+            val geocoder = Geocoder(this, Locale.getDefault());
+            binding.progress.visibility = View.GONE
+            addresses = geocoder.getFromLocation(
+                defaultLocation.latitude,
+                defaultLocation.longitude,
+                1
+            ); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
-        val address = addresses[0]
-            .getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-        val city = addresses.get(0).locality
-        val state = addresses.get(0).adminArea
-        val country = addresses.get(0).countryName
-        val postalCode = addresses.get(0).postalCode
-        val knownName = addresses.get(0).featureName // Only if available else return NULL
+            val address = addresses[0]
+                .getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            val city = addresses.get(0).locality
+            val state = addresses.get(0).adminArea
+            val country = addresses.get(0).countryName
+            val postalCode = addresses.get(0).postalCode
+            val knownName = addresses.get(0).featureName // Only if available else return NULL
 
-        findViewById<TextView>(R.id.tvAddress).text = address
+            findViewById<TextView>(R.id.tvAddress).text = address
+        } catch (e: Exception) {
+            e.message?.let { toast(it) }
+        }
 
     }
     // [END maps_current_place_get_device_location]

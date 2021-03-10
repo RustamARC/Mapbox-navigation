@@ -7,15 +7,25 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="colorPrimary">#33C377</color>
-    <color name="colorPrimaryDark">#FF218450</color>
+    <color name="colorPrimary">@android:color/holo_orange_light</color>
+    <color name="colorPrimaryDark">@android:color/holo_orange_dark</color>
     <color name="colorAccent">#FF4081</color>
     <color name="mapboxWhite">#ffffff</color>
-    <color name="mapboxBlue">#4264fb</color>
+    <color name="mapboxBlue">@color/colorBlue</color>
+    <color name="colorGreen">#35C13A</color>
     <color name="mapboxGrayLight">#c6d2e1</color>
     <color name="mapboxPink">#ee4e8b</color>
     <color name="mapboxYellow">#d9d838</color>
     <color name="mapboxRed">#b43b71</color>
     <color name="white_transparent">#E1FFFFFF</color>
+
+    <!--JumpDriver color-->
+    <color name="colorBlue">#375FC1</color>
+    <color name="colorDollar">#499982</color>
+    <color name="colorGray">#535864</color>
+    <color name="colorProfile">#283C59</color>
+    <color name="colorBtnNavigate">#365FC3</color>
+    <color name="colorProfileStartTrip">#3DA78C</color>
+
 
 </resources>

@@ -11,23 +11,21 @@ import com.rnd.mapbox.R
 import com.rnd.mapbox.ui.queue.model.QueueModel
 import kotlinx.android.synthetic.main.queue_item.view.*
 
-class QueueAdapter(val ctx: Context, val data: LiveData<List<QueueModel>>) :
+class QueueAdapter(val ctx: Context, val data: List<QueueModel>) :
     RecyclerView.Adapter<ViewH>() {
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewH {
         return ViewH(LayoutInflater.from(ctx).inflate(R.layout.queue_item, p0, false))
     }
 
     override fun getItemCount(): Int {
-        Log.d("Adapter Size ", data.value.toString())
-        return data.value!!.size
+        Log.d("Adapter Size ", data.toString())
+        return data.size
 
     }
 
     override fun onBindViewHolder(p0: ViewH, p1: Int) {
 
-        // val model:Model= data.value!!.get(p1)
-        //p0.nam.text=model.name
-        p0.bindItems(data.value!!?.get(p1))
+        p0.bindItems(data.get(p1))
 
     }
 }

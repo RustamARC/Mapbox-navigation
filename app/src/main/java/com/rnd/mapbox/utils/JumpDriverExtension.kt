@@ -5,9 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.view.View
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+
 
 fun <A : Activity> Activity.startNewActivity(activity: Class<A>) {
     Intent(this, activity).also {
@@ -34,6 +37,24 @@ fun View.snackbar(message: String, action: (() -> Unit)? = null) {
         }
     }
     snackbar.show()
+}
+
+/**
+ * Make a View Blink for a desired duration
+ *
+ * @param view     view that will be animated
+ * @param duration for how long in ms will it blink
+ * @param offset   start offset of the animation
+ * @return returns the same view with animation properties
+ */
+fun View.blink(duration: Int, offset: Int): View? {
+    val anim: Animation = AlphaAnimation(0.0f, 1.0f)
+    anim.duration = duration.toLong()
+    anim.startOffset = offset.toLong()
+    anim.repeatMode = Animation.REVERSE
+    anim.repeatCount = Animation.INFINITE
+    this.startAnimation(anim)
+    return this
 }
 
 

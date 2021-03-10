@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
 
@@ -9,23 +10,24 @@
         android:layout_height="match_parent"
         tools:context=".ui.home.HomeFragment">
 
-        <com.google.android.gms.maps.MapView
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.MapFragment"
+        <com.mapbox.mapboxsdk.maps.MapView
+            android:id="@+id/mapView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            mapbox:layout_constraintBottom_toBottomOf="parent"
+            mapbox:layout_constraintEnd_toEndOf="parent"
+            mapbox:layout_constraintStart_toStartOf="parent"
+            mapbox:layout_constraintTop_toTopOf="parent"
+            mapbox:mapbox_cameraZoom="15" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
             android:id="@+id/btnRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:text="$0.00"
             android:textColor="@color/white"
             android:textSize="16sp"
@@ -59,48 +61,46 @@
         </androidx.viewpager2.widget.ViewPager2>
 
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mcvGo"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:gravity="center"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
             app:backgroundTint="@color/mapboxBlue"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias=".5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias=".78" />
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/btnNavigate"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            android:text="@string/str_go"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:backgroundTint="@color/mapboxBlue"
+            app:cardBackgroundColor="@color/mapboxBlue"
+            app:cardElevation="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias=".5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias=".78"
-            app:strokeColor="@color/white"
-            app:strokeWidth="1dp" />
+            app:shapeAppearanceOverlay="@style/MaterialCarViewCircle">
 
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/btnGo"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                android:text="@string/str_go"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/colorBtnNavigate"
+                app:strokeColor="@color/white"
+                app:strokeWidth="1dp" />
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
             android:id="@+id/btnMyLocation"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginBottom="10dp"
             android:gravity="center"
             android:paddingStart="0dp"
@@ -118,8 +118,8 @@
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
             android:id="@+id/btnSafety"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginBottom="10dp"
             android:gravity="center"
             android:paddingStart="0dp"
@@ -133,5 +133,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias=".8" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/btnNavigate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/str_navigate"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:backgroundTint="@color/colorBtnNavigate"
+            app:icon="@drawable/ic_navigation"
+            app:iconGravity="start"
+            app:iconPadding="2dp"
+            app:iconTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias=".9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias=".75">
+
+        </com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -43,6 +43,9 @@
     <string name="icon_conversation">&#xe94a;</string>
     <string name="icon_logout">&#xe924;</string>
     <string name="icon_checked">&#xe913;</string>
+    <string name="icon_up_arrow">&#xe903;</string>
+    <string name="icon_right_arrow">&#xe952;</string>
+    <string name="icon_telephone">&#xe958;</string>
 
     <!--icon end-->
 
@@ -55,6 +58,10 @@
     <string name="str_food">Food</string>
     <string name="str_both">Both</string>
     <string name="str_finding_trips">Finding trips</string>
+    <string name="str_decline">DECLINE</string>
+    <string name="str_taxi_cap">TAXI</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

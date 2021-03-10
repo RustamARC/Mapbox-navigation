@@ -11,15 +11,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.rnd.mapbox.R
 import com.rnd.mapbox.databinding.FragmentQueueBinding
+import com.rnd.mapbox.ui.home.viewpager.ViewPagerAdapter
 import com.rnd.mapbox.ui.queue.adapter.QueueAdapter
 import com.rnd.mapbox.ui.queue.model.QueueModel
+import com.rnd.mapbox.ui.queue.viewpager.QueueViewPagerAdapter
 
 class QueueFragment : Fragment() {
 
     private lateinit var queueViewModel: QueueViewModel
-    private lateinit var binding: FragmentQueueBinding
+
+    //    private lateinit var binding: FragmentQueueBinding
     var data = MutableLiveData<List<QueueModel>>()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,14 +37,28 @@ class QueueFragment : Fragment() {
             ViewModelProvider(this).get(QueueViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_queue, container, false)
-        val queueList = root.findViewById<RecyclerView>(R.id.queuelist)
-        val progress = root.findViewById<ProgressBar>(R.id.progress)
-        queueViewModel.getQueueList().observe(viewLifecycleOwner, Observer {
-            data.value = queueViewModel.getQueueList().value
-            val adapter = QueueAdapter(requireContext(), data)
-            queueList.adapter = adapter
-            progress.visibility = View.GONE
-        })
+
+        val queueTabs = root.findViewById<TabLayout>(R.id.queueTabs)
+
+
+        val viewpager = root.findViewById<ViewPager2>(R.id.queueViewPager)
+
+        viewpager.adapter = QueueViewPagerAdapter(requireContext())
+
+        TabLayoutMediator(queueTabs, viewpager) { tab, position ->
+            when (position) {
+                0 -> {
+                    tab.text = "TAXI"
+                }
+                1 -> {
+                    tab.text = "FOOD"
+                }
+                2 -> {
+                    tab.text = "BOTH"
+                }
+            }
+        }.attach()
+
         return root
     }
 }
