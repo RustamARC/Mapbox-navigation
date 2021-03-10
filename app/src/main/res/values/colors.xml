@@ -26,6 +26,7 @@
     <color name="colorProfile">#283C59</color>
     <color name="colorBtnNavigate">#365FC3</color>
     <color name="colorProfileStartTrip">#3DA78C</color>
-
+    <color name="colorCallButton">#F4F7F7</color>
+    <color name="colorRed">#FF0000</color>
 
 </resources>

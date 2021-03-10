@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <TextView
+        android:id="@+id/ivHome"
+        android:layout_width="15dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/icon_home"
+        android:textColor="@color/colorGray"
+        android:textSize="14sp" />
+
+
+    <TextView
+        android:id="@+id/tvHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/ivHome"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp"
+        tools:text="Home" />
+
+
+</RelativeLayout>

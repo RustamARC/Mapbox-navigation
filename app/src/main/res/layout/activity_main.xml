@@ -70,7 +70,7 @@
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_margin="5dp"
-                        app:cardBackgroundColor="@color/mapboxBlue"
+                        app:cardBackgroundColor="@color/colorProfileStartTrip"
                         app:cardCornerRadius="12dp">
 
                         <TextView
@@ -81,12 +81,9 @@
                             android:gravity="center"
                             android:paddingStart="0dp"
                             android:paddingEnd="0dp"
-                            android:shadowColor="@color/white"
-                            android:shadowRadius="0"
                             android:text="@string/icon_profile"
                             android:textColor="@color/white"
-                            android:textSize="10sp"
-                            app:backgroundTint="@color/mapbox_blue" />
+                            android:textSize="12sp" />
                     </com.google.android.material.card.MaterialCardView>
 
                     <TextView
@@ -106,7 +103,7 @@
                     android:layout_below="@id/llPickupDetail"
                     android:layout_centerHorizontal="true"
                     android:gravity="center"
-                    android:minHeight="25dp"
+                    android:minHeight="40dp"
                     android:text="@string/str_you_are_offline"
                     android:textColor="@color/black"
                     android:textSize="16sp"

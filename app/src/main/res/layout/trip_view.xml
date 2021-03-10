@@ -52,7 +52,8 @@
             android:id="@+id/btnAccept"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
+            android:layout_marginBottom="40dp"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="16sp"
@@ -61,10 +62,9 @@
             app:cardCornerRadius="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias=".05"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias=".9">
+            app:layout_constraintVertical_bias=".88">
 
 
             <RelativeLayout

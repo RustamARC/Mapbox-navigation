@@ -5,7 +5,9 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.Menu
 import android.view.View
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -36,6 +38,7 @@ class MainActivity : BaseActivity(), HomeFragment.MapInterationListener,
     var job: Job? = null
     lateinit var binding: ActivityMainBinding
     lateinit var sharedPreference: SharedPreference
+
     var optionType: OptionType = OptionType.NONE
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +56,7 @@ class MainActivity : BaseActivity(), HomeFragment.MapInterationListener,
         binding.startPickupView.ivStartArrow.typeface = font
         binding.startPickupView.startTaxiOpenMenu.typeface = font
         binding.startPickupView.ivCall.typeface = font
+        binding.startPickupView.ivStartUser.typeface = font
 
         binding.completePickupView.ivCompleteArrow.typeface = font
         binding.completePickupView.completeTaxiOpenMenu.typeface = font
@@ -63,6 +67,7 @@ class MainActivity : BaseActivity(), HomeFragment.MapInterationListener,
         binding.drivingPref.food.typeface = font
         binding.drivingPref.both.typeface = font
         binding.ivUser.typeface = font
+
         binding.pickupView.tvArrowUp.typeface = font
 
         binding.tvDriverStatus.text = resources.getString(R.string.str_you_are_offline)
@@ -173,7 +178,8 @@ class MainActivity : BaseActivity(), HomeFragment.MapInterationListener,
         }
 
         binding.completePickupView.cardCompleteTaxi.setOnClickListener {
-            completeTaxi()
+//            completeTaxi()
+            onReset()
         }
 
         binding.navView.setupWithNavController(navController)
@@ -203,10 +209,10 @@ class MainActivity : BaseActivity(), HomeFragment.MapInterationListener,
         binding.startPickupView.visibility = View.GONE
         binding.completePickupView.visibility = View.VISIBLE
         binding.completePickupView.tvCompleteTaxi.blink(500, 20)
-        Handler(Looper.getMainLooper()).postDelayed(Runnable {
+        /*Handler(Looper.getMainLooper()).postDelayed(Runnable {
             toast("Trip completed")
             onReset()
-        }, 5000)
+        }, 2000)*/
     }
 
     private fun onStartClick() {
@@ -226,7 +232,7 @@ class MainActivity : BaseActivity(), HomeFragment.MapInterationListener,
         Handler(Looper.getMainLooper()).postDelayed(Runnable {
             toast("Trip completed")
             completeTaxi()
-        }, 10000)
+        }, 5000)
     }
 
     private fun openDriverPreference() {
@@ -376,6 +382,13 @@ class MainActivity : BaseActivity(), HomeFragment.MapInterationListener,
         toast(reason)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        /*   val font = Typeface.createFromAsset(assets, "fonts/icomoon.ttf")
+           menu?.findItem(R.id.navigation_home)?.actionView?.findViewById<TextView>(R.id.ivHome)?.typeface =
+               font*/
+        return super.onCreateOptionsMenu(menu)
+    }
+
 
     override fun onDestinationChanged(
         controller: NavController,
@@ -409,6 +422,7 @@ class MainActivity : BaseActivity(), HomeFragment.MapInterationListener,
             View.VISIBLE
         binding.driveView.visibility = View.VISIBLE
         binding.rlPickupDetails.visibility = View.VISIBLE
+        binding.llPickupDetail.visibility = View.GONE
         binding.tvDriverStatus.text = resources.getString(R.string.str_you_are_offline)
         nav_host_fragment.view?.visibility = View.VISIBLE
     }

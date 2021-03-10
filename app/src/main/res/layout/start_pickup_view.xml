@@ -11,14 +11,13 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/btnPickup"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_margin="10dp"
+            android:layout_height="60dp"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             app:cardBackgroundColor="@color/black"
-            app:cardCornerRadius="10dp"
+            app:cardCornerRadius="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -30,32 +29,32 @@
                 android:layout_gravity="center">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
-                    android:src="@drawable/circle_rect" />
+                    android:src="@drawable/circle_rect_red" />
 
                 <TextView
                     android:id="@+id/tvStopAdress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
-
                     android:text="Stop tram city South"
-                    android:textColor="@color/md_grey_400" />
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvStopAdress"
                     android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:text="Adelaide SA"
-                    android:textColor="@color/md_grey_400" />
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -63,12 +62,13 @@
             android:id="@+id/mcvStartTaxi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="150dp"
+            android:layout_marginBottom="40dp"
+            android:minHeight="250dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias=".89">
+            app:layout_constraintVertical_bias=".95">
 
             <TextView
                 android:id="@+id/startTaxiOpenMenu"
@@ -87,50 +87,65 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:gravity="center">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvDuration"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="2 min"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_margin="5dp"
-                    app:cardBackgroundColor="@color/colorGreen"
-                    app:cardCornerRadius="12dp">
+                    android:layout_marginTop="10dp"
+                    android:gravity="center">
 
                     <TextView
-                        android:id="@+id/ivUser"
+                        android:id="@+id/tvDuration"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:gravity="center"
-                        android:paddingStart="0dp"
-                        android:paddingEnd="0dp"
-                        android:shadowColor="@color/white"
-                        android:shadowRadius="0"
-                        android:text="@string/icon_profile"
-                        android:textColor="@color/white"
-                        android:textSize="10sp"
-                        app:backgroundTint="@color/mapbox_blue" />
-                </com.google.android.material.card.MaterialCardView>
+                        android:text="2 min"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvDistance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="2.5 km"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_margin="5dp"
+                        app:cardBackgroundColor="@color/colorGreen"
+                        app:cardCornerRadius="12dp">
+
+                        <TextView
+                            android:id="@+id/ivStartUser"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:paddingStart="0dp"
+                            android:paddingEnd="0dp"
+                            android:shadowColor="@color/white"
+                            android:shadowRadius="0"
+                            android:text="@string/icon_profile"
+                            android:textColor="@color/white"
+                            android:textSize="10sp"
+                            app:backgroundTint="@color/mapbox_blue" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:id="@+id/tvDistance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="2.5 km"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height=".5dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/colorGray" />
             </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/llWaiting"
@@ -157,14 +172,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/ellipse_bg"
                     android:gravity="center"
-                    android:padding="5dp"
                     android:text="1:39"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
-
 
             </LinearLayout>
 
@@ -179,17 +192,21 @@
                 android:orientation="horizontal"
                 android:padding="5dp">
 
-                <TextView
+                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                     android:id="@+id/ivCall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="20dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="start"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
                     android:text="@string/icon_telephone"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/colorCallButton"
+                    app:iconPadding="2dp" />
 
                 <TextView
                     android:id="@+id/tvName"
@@ -212,10 +229,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvDriverStatus"
                 android:layout_gravity="bottom"
-                android:layout_margin="5dp"
-                android:minHeight="40dp"
+                android:minHeight="50dp"
                 app:cardBackgroundColor="@color/colorGreen"
-                app:cardCornerRadius="2dp">
+                app:cardCornerRadius="0dp">
 
                 <TextView
                     android:id="@+id/ivStartArrow"
@@ -236,7 +252,8 @@
                     android:layout_margin="5dp"
                     android:text="START TAXI"
                     android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
             </com.google.android.material.card.MaterialCardView>
 
