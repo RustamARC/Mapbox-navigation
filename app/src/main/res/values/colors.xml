@@ -23,6 +23,7 @@
     <color name="colorBlue">#375FC1</color>
     <color name="colorDollar">#499982</color>
     <color name="colorGray">#535864</color>
+    <color name="colorGrayLight">#D7D7D8</color>
     <color name="colorProfile">#283C59</color>
     <color name="colorBtnNavigate">#365FC3</color>
     <color name="colorProfileStartTrip">#3DA78C</color>

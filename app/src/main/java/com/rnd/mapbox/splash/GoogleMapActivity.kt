@@ -29,10 +29,13 @@ import com.rnd.mapbox.R
 import com.rnd.mapbox.databinding.ActivityGoogleMapBinding
 import com.rnd.mapbox.ui.BaseActivity
 import com.rnd.mapbox.ui.MainActivity
+import com.rnd.mapbox.utils.OptionType
+import com.rnd.mapbox.utils.SharedPreference
 import com.rnd.mapbox.utils.toast
 import java.util.*
 
 class GoogleMapActivity : BaseActivity(), OnMapReadyCallback, View.OnClickListener {
+    private lateinit var sharedPreference: SharedPreference
     private var map: GoogleMap? = null
     private var cameraPosition: CameraPosition? = null
 
@@ -52,7 +55,7 @@ class GoogleMapActivity : BaseActivity(), OnMapReadyCallback, View.OnClickListen
         binding = DataBindingUtil.setContentView(this, R.layout.activity_google_map)
         Places.initialize(applicationContext, BuildConfig.GOOGLE_MAPS_API_KEY)
         placesClient = Places.createClient(this)
-
+        sharedPreference = SharedPreference(this)
         val font = Typeface.createFromAsset(assets, "fonts/icomoon.ttf")
         binding.taxi.typeface = font
         binding.food.typeface = font
@@ -263,18 +266,17 @@ class GoogleMapActivity : BaseActivity(), OnMapReadyCallback, View.OnClickListen
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.mcv_taxi -> {
-                Toast.makeText(this, "Taxi", Toast.LENGTH_SHORT).show()
+                sharedPreference.save("MODE", OptionType.TAXI.name)
                 navigateToHome()
             }
             R.id.mcv_food -> {
-                Toast.makeText(this, "Food", Toast.LENGTH_SHORT).show()
+                sharedPreference.save("MODE", OptionType.FOOD.name)
                 navigateToHome()
             }
             R.id.mcv_both -> {
-                Toast.makeText(this, "Both", Toast.LENGTH_SHORT).show()
+                sharedPreference.save("MODE", OptionType.BOTH.name)
                 navigateToHome()
             }
-
         }
     }
 

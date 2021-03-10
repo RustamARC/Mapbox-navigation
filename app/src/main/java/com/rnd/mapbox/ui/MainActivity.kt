@@ -22,6 +22,7 @@ import com.rnd.mapbox.ui.bottomsheet.SafetyOptionBottomSheet
 import com.rnd.mapbox.ui.home.HomeFragment
 import com.rnd.mapbox.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.complete_pickup_view.view.*
 import kotlinx.android.synthetic.main.driving_preference.view.*
 import kotlinx.android.synthetic.main.pickup_view.view.*
@@ -77,8 +78,8 @@ class MainActivity : BaseActivity(), HomeFragment.MapInterationListener,
         }
 
         binding.startPickupView.startTaxiOpenMenu.setOnClickListener {
-            binding.startPickupView.visibility = View.GONE
-            openDriverPreference()
+            /* binding.startPickupView.visibility = View.GONE
+             openDriverPreference()*/
         }
 
         binding.drivingPref.tvClose.setOnClickListener {
@@ -181,6 +182,7 @@ class MainActivity : BaseActivity(), HomeFragment.MapInterationListener,
 //            completeTaxi()
             onReset()
         }
+        binding.completePickupView.openMenu
 
         binding.navView.setupWithNavController(navController)
     }
@@ -238,9 +240,10 @@ class MainActivity : BaseActivity(), HomeFragment.MapInterationListener,
     private fun openDriverPreference() {
 
         binding.drivingPref.visibility = View.VISIBLE
-        nav_host_fragment.view?.visibility = View.GONE
-        binding.driveView.visibility = View.GONE
 
+        nav_host_fragment.view?.visibility = View.GONE
+
+        binding.driveView.visibility = View.GONE
         binding.pickupView.visibility = View.GONE
         binding.llPickupDetail.visibility = View.GONE
         binding.startPickupView.visibility = View.GONE
@@ -436,6 +439,8 @@ class MainActivity : BaseActivity(), HomeFragment.MapInterationListener,
         binding.pickupView.visibility = View.GONE
         binding.completePickupView.visibility = View.GONE
         nav_host_fragment.view?.visibility = View.VISIBLE
+        nav_host_fragment.view?.findViewById<ExtendedFloatingActionButton>(R.id.btnNavigate)?.visibility =
+            View.GONE
         cancelJob()
     }
 

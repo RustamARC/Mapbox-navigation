@@ -48,13 +48,13 @@ class QueueFragment : Fragment() {
         TabLayoutMediator(queueTabs, viewpager) { tab, position ->
             when (position) {
                 0 -> {
-                    tab.text = "TAXI"
+                    tab.text = "Taxi"
                 }
                 1 -> {
-                    tab.text = "FOOD"
+                    tab.text = "Food"
                 }
                 2 -> {
-                    tab.text = "BOTH"
+                    tab.text = "Both"
                 }
             }
         }.attach()

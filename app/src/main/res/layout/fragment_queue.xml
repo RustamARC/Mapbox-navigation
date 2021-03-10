@@ -40,9 +40,10 @@
             android:id="@+id/queueTabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:animateLayoutChanges="true"
-            android:background="@color/colorGray"
+            android:background="@color/colorGrayLight"
             app:layout_constraintCircleRadius="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,6 +58,7 @@
             app:tabIndicatorHeight="0dp"
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/white"
+            app:tabTextAppearance="@style/TabText"
             app:tabTextColor="@color/black" />
 
         <androidx.viewpager2.widget.ViewPager2
@@ -64,6 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="120dp"
+            android:layout_marginBottom="50dp"
             app:cardBackgroundColor="@color/white"
             app:cardUseCompatPadding="true"
             app:layout_constraintBottom_toBottomOf="parent"

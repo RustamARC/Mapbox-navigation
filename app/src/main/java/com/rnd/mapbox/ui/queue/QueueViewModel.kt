@@ -42,56 +42,56 @@ class QueueViewModel : ViewModel() {
         val queueList = ArrayList<QueueModel>()
         queueList.add(
             QueueModel(
-                "Aurobindopally , Chakraborty Shiv Kali Mandir",
-                "5.0 miles"
+                "RGM 20, Zarda Bagan, Jyangra, Rajarhat, Kolkata, West Bengal 700059, India",
+                "0.1 mile away"
             )
         )
         queueList.add(
             QueueModel(
-                "Aurobindopally , Chakraborty Shiv Kali Mandir",
-                "5.0 miles"
+                "RGM 20, Zarda Bagan, Jyangra, Rajarhat, Kolkata, West Bengal 700059, India",
+                "0.1 mile away"
             )
         )
         queueList.add(
             QueueModel(
-                "Aurobindopally , Chakraborty Shiv Kali Mandir",
-                "5.0 miles"
+                "RGM 20, Zarda Bagan, Jyangra, Rajarhat, Kolkata, West Bengal 700059, India",
+                "0.1 mile away"
             )
         )
         queueList.add(
             QueueModel(
-                "Aurobindopally , Chakraborty Shiv Kali Mandir",
-                "5.0 miles"
+                "RGM 20, Zarda Bagan, Jyangra, Rajarhat, Kolkata, West Bengal 700059, India",
+                "0.1 mile away"
             )
         )
         queueList.add(
             QueueModel(
-                "Aurobindopally , Chakraborty Shiv Kali Mandir",
-                "5.0 miles"
+                "RGM 20, Zarda Bagan, Jyangra, Rajarhat, Kolkata, West Bengal 700059, India",
+                "0.1 mile away"
             )
         )
         queueList.add(
             QueueModel(
-                "Aurobindopally , Chakraborty Shiv Kali Mandir",
-                "5.0 miles"
+                "RGM 20, Zarda Bagan, Jyangra, Rajarhat, Kolkata, West Bengal 700059, India",
+                "0.1 mile away"
             )
         )
         queueList.add(
             QueueModel(
-                "Aurobindopally , Chakraborty Shiv Kali Mandir",
-                "5.0 miles"
+                "RGM 20, Zarda Bagan, Jyangra, Rajarhat, Kolkata, West Bengal 700059, India",
+                "0.1 mile away"
             )
         )
         queueList.add(
             QueueModel(
-                "Aurobindopally , Chakraborty Shiv Kali Mandir",
-                "5.0 miles"
+                "RGM 20, Zarda Bagan, Jyangra, Rajarhat, Kolkata, West Bengal 700059, India",
+                "0.1 mile away"
             )
         )
         queueList.add(
             QueueModel(
-                "Aurobindopally , Chakraborty Shiv Kali Mandir",
-                "5.0 miles"
+                "RGM 20, Zarda Bagan, Jyangra, Rajarhat, Kolkata, West Bengal 700059, India",
+                "0.1 mile away"
             )
         )
         return queueList
