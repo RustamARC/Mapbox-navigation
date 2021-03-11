@@ -2,6 +2,9 @@ package com.rnd.mapbox.ui.home.viewpager
 
 import android.content.Context
 import android.graphics.Typeface
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,8 +34,15 @@ class ViewPagerAdapter(context: Context) : RecyclerView.Adapter<PagerVH>() {
         tvEye.typeface = font
         tvQuery.typeface = font
 
+        val ssb = SpannableStringBuilder("$0.00")
+        val dollarColor = ForegroundColorSpan(resources.getColor(R.color.colorDollar))
+        ssb.setSpan(dollarColor, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
         if (position == 0) {
-            tvRate.text = "$0.00"
+            val ssb = SpannableStringBuilder("$0.00")
+            val dollarColor = ForegroundColorSpan(resources.getColor(R.color.colorDollar))
+            ssb.setSpan(dollarColor, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            tvRate.text = ssb
             lasttrip.text = "Today"
             tvDate.text = "0 trip completed"
             mode.visibility = View.INVISIBLE
@@ -40,7 +50,10 @@ class ViewPagerAdapter(context: Context) : RecyclerView.Adapter<PagerVH>() {
             container.setBackgroundResource(colors[position])
         }
         if (position == 1) {
-            tvRate.text = "$15.68"
+            val ssb = SpannableStringBuilder("$15.68")
+            val dollarColor = ForegroundColorSpan(resources.getColor(R.color.colorDollar))
+            ssb.setSpan(dollarColor, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            tvRate.text = ssb
             lasttrip.text = "LAST TRIP"
             tvDate.text = "Yesterday at 8:30 pm"
             mode.text = "UberX"

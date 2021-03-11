@@ -92,7 +92,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback,
 
         val ssb = SpannableStringBuilder("$0.00")
         val dollarColor = ForegroundColorSpan(resources.getColor(R.color.colorDollar))
-        val whiteColor = ForegroundColorSpan(Color.WHITE)
         ssb.setSpan(dollarColor, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         binding.btnRate.text = ssb
         binding.notifyPropertyChanged(R.id.btnRate)
