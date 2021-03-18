@@ -64,4 +64,10 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/colorGray</item>
+        <item name="colorControlActivated">@color/colorYellow</item>
+    </style>
+
+
 </resources>

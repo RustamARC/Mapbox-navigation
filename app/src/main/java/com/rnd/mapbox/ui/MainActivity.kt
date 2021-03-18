@@ -7,8 +7,9 @@ import android.os.Handler
 import android.os.Looper
 import android.view.Menu
 import android.view.View
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
@@ -19,16 +20,18 @@ import com.mapbox.api.directions.v5.models.DirectionsRoute
 import com.rnd.mapbox.R
 import com.rnd.mapbox.databinding.ActivityMainBinding
 import com.rnd.mapbox.ui.bottomsheet.SafetyOptionBottomSheet
+import com.rnd.mapbox.ui.bottomsheet.StopListingBottomSheet
 import com.rnd.mapbox.ui.home.HomeFragment
 import com.rnd.mapbox.utils.*
+import com.rnd.mapbox.viewmodel.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.complete_pickup_view.view.*
 import kotlinx.android.synthetic.main.driving_preference.view.*
+import kotlinx.android.synthetic.main.feedback_rating.view.*
 import kotlinx.android.synthetic.main.pickup_view.view.*
 import kotlinx.android.synthetic.main.start_pickup_view.view.*
 import kotlinx.android.synthetic.main.trip_view.view.*
-import kotlinx.android.synthetic.main.trip_view.view.btnProfile
 import kotlinx.coroutines.*
 
 class MainActivity : BaseActivity(), HomeFragment.MapInterationListener,
@@ -39,47 +42,56 @@ class MainActivity : BaseActivity(), HomeFragment.MapInterationListener,
     var job: Job? = null
     lateinit var binding: ActivityMainBinding
     lateinit var sharedPreference: SharedPreference
-
+    lateinit var mainActivityViewModel: MainActivityViewModel
     var optionType: OptionType = OptionType.NONE
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         val navController = findNavController(R.id.nav_host_fragment)
-
+        mainActivityViewModel = MainActivityViewModel()
         navController.addOnDestinationChangedListener(this)
         sharedPreference = SharedPreference(this)
-        val font = Typeface.createFromAsset(assets, "fonts/icomoon.ttf")
-        binding.openMenu.typeface = font
-        binding.drivingPref.tvClose.typeface = font
-        binding.tripView.close.typeface = font
-        binding.tripView.btnProfile.typeface = font
 
-        binding.startPickupView.ivStartArrow.typeface = font
-        binding.startPickupView.startTaxiOpenMenu.typeface = font
-        binding.startPickupView.ivCall.typeface = font
-        binding.startPickupView.ivStartUser.typeface = font
-
-        binding.completePickupView.ivCompleteArrow.typeface = font
-        binding.completePickupView.completeTaxiOpenMenu.typeface = font
-        binding.completePickupView.ivCompleteCall.typeface = font
-        binding.completePickupView.ivCompleteUser.typeface = font
-
-        binding.drivingPref.taxi.typeface = font
-        binding.drivingPref.food.typeface = font
-        binding.drivingPref.both.typeface = font
-        binding.ivUser.typeface = font
-
-        binding.pickupView.tvArrowUp.typeface = font
+        initFont()
 
         binding.tvDriverStatus.text = resources.getString(R.string.str_you_are_offline)
+
+        mainActivityViewModel.statusChangeResponse.observe(this, Observer {
+            when (it) {
+                is com.rnd.mapbox.network.Resource.Success -> {
+                    lifecycleScope.launch {
+                        it.value.let { changeStatus ->
+                            if (changeStatus.status == "success") {
+                                binding.progressIndicator.visibility = View.GONE
+                                binding.tvDriverStatus.text = changeStatus.msg
+                                delay(2000)
+                                showTrip()
+                                showHideSafetyGoAndMyLocationView(false)
+                            } else {
+                            }
+
+                        }
+                    }
+
+
+                }
+                is com.rnd.mapbox.network.Resource.Failure -> {
+                    handleApiError(it) {
+//                        viewModel.login()
+                    }
+                }
+                else -> {
+
+                }
+            }
+        })
 
         binding.openMenu.setOnClickListener {
             openDriverPreference()
         }
 
         binding.startPickupView.startTaxiOpenMenu.setOnClickListener {
-            /* binding.startPickupView.visibility = View.GONE
-             openDriverPreference()*/
+            StopListingBottomSheet().show(supportFragmentManager, "")
         }
 
         binding.drivingPref.tvClose.setOnClickListener {
@@ -151,10 +163,10 @@ class MainActivity : BaseActivity(), HomeFragment.MapInterationListener,
             binding.driveView.visibility = View.VISIBLE
 
             binding.pickupView.visibility = View.VISIBLE
-            binding.pickupView.tvArrowUp.typeface = font
+
             binding.tvDriverStatus.text = "Picking up Joe"
             binding.llPickupDetail.visibility = View.VISIBLE
-            binding.ivUser.typeface = font
+
             showHideSafetyGoAndMyLocationView(false)
             showHideNavigateButton(true)
             cancelJob()
@@ -180,11 +192,53 @@ class MainActivity : BaseActivity(), HomeFragment.MapInterationListener,
 
         binding.completePickupView.cardCompleteTaxi.setOnClickListener {
 //            completeTaxi()
-            onReset()
+            showRatingView()
         }
         binding.completePickupView.openMenu
 
         binding.navView.setupWithNavController(navController)
+    }
+
+    private fun initFont() {
+
+        val font = Typeface.createFromAsset(assets, "fonts/icomoon.ttf")
+        binding.openMenu.typeface = font
+        binding.drivingPref.tvClose.typeface = font
+        binding.tripView.close.typeface = font
+        binding.tripView.btnProfile.typeface = font
+
+        binding.startPickupView.ivStartArrow.typeface = font
+        binding.startPickupView.startTaxiOpenMenu.typeface = font
+        binding.startPickupView.ivCall.typeface = font
+        binding.startPickupView.ivStartUser.typeface = font
+
+        binding.completePickupView.ivCompleteArrow.typeface = font
+        binding.completePickupView.completeTaxiOpenMenu.typeface = font
+        binding.completePickupView.ivCompleteCall.typeface = font
+        binding.completePickupView.ivCompleteUser.typeface = font
+
+        binding.drivingPref.taxi.typeface = font
+        binding.drivingPref.food.typeface = font
+        binding.drivingPref.both.typeface = font
+        binding.ivUser.typeface = font
+
+        binding.pickupView.tvArrowUp.typeface = font
+
+        binding.pickupView.tvArrowUp.typeface = font
+        binding.ivUser.typeface = font
+    }
+
+    private fun showRatingView() {
+        binding.completePickupView.visibility = View.GONE
+        binding.feedbackRating.visibility = View.VISIBLE
+        binding.feedbackRating.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+
+            if (fromUser)
+                toast(rating.toString())
+        }
+        binding.feedbackRating.btnRateRider.setOnClickListener {
+            onReset()
+        }
     }
 
     private fun showHideSafetyGoAndMyLocationView(visibility: Boolean) {
@@ -292,15 +346,18 @@ class MainActivity : BaseActivity(), HomeFragment.MapInterationListener,
     override fun onGoClicked() {
         binding.tvDriverStatus.text = resources.getString(R.string.str_finding_trips)
         binding.progressIndicator.visibility = View.VISIBLE
+        mainActivityViewModel.changeDriverStatus()
+//        cancelJob()
 
-        cancelJob()
 
-        job = CoroutineScope(Dispatchers.Main).launch {
-            for (i in 0..100 step 1) {
+        /* job = CoroutineScope(Dispatchers.Main).launch {
+             *//*for (i in 0..100 step 1) {
                 delay(50)
-                /* binding.progressIndicator.progress = i
-                 binding.notifyPropertyChanged(R.id.progress_indicator)*/
-            }
+                *//**//* binding.progressIndicator.progress = i
+                 binding.notifyPropertyChanged(R.id.progress_indicator)*//**//*
+            }*//*
+
+
 
         }
         job?.apply {
@@ -317,8 +374,9 @@ class MainActivity : BaseActivity(), HomeFragment.MapInterationListener,
                     }
                 }
             }
-        }
+        }*/
     }
+
 
     fun cancelJob() {
         job?.cancel()
@@ -428,6 +486,7 @@ class MainActivity : BaseActivity(), HomeFragment.MapInterationListener,
         binding.llPickupDetail.visibility = View.GONE
         binding.tvDriverStatus.text = resources.getString(R.string.str_you_are_offline)
         nav_host_fragment.view?.visibility = View.VISIBLE
+        binding.feedbackRating.visibility = View.GONE
     }
 
     private fun hideHomeWidgetView() {
@@ -438,9 +497,13 @@ class MainActivity : BaseActivity(), HomeFragment.MapInterationListener,
         binding.driveView.visibility = View.GONE
         binding.pickupView.visibility = View.GONE
         binding.completePickupView.visibility = View.GONE
+
+        binding.feedbackRating.visibility = View.GONE
+
         nav_host_fragment.view?.visibility = View.VISIBLE
         nav_host_fragment.view?.findViewById<ExtendedFloatingActionButton>(R.id.btnNavigate)?.visibility =
             View.GONE
+
         cancelJob()
     }
 

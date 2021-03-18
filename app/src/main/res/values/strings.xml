@@ -62,6 +62,9 @@
     <string name="str_taxi_cap">TAXI</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="how_was_your_rides">How was your rides?</string>
+    <string name="rate_rider">Rate Rider</string>
+    <string name="trip_panner">Trip planner</string>
 
 
 </resources>

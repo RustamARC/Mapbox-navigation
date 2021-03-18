@@ -29,5 +29,6 @@
     <color name="colorProfileStartTrip">#3DA78C</color>
     <color name="colorCallButton">#F4F7F7</color>
     <color name="colorRed">#FF0000</color>
+    <color name="colorYellow">#FFC107</color>
 
 </resources>

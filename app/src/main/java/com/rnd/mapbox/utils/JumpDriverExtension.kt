@@ -65,3 +65,48 @@ fun Context.toast(message: String) = Toast.makeText(this, message, Toast.LENGTH_
 
 fun Activity.toast(message: String) = this.applicationContext.toast(message)
 fun Fragment.toast(message: String) = this.requireActivity().toast(message)
+
+fun Fragment.handleApiError(
+    failure: com.rnd.mapbox.network.Resource.Failure,
+    retry: (() -> Unit)? = null
+) {
+    when {
+        failure.isNetworkError -> requireView().snackbar(
+            "Please check your internet connection",
+            retry
+        )
+        failure.errorCode == 401 -> {
+            /*if (this is LoginFragment) {
+                requireView().snackbar("You've entered incorrect email or password")
+            } else {
+                (this as BaseFragment<*, *, *>).logout()
+            }*/
+        }
+        else -> {
+            val error = failure.errorBody?.string().toString()
+            requireView().snackbar(error)
+        }
+    }
+}
+
+fun Activity.handleApiError(
+    failure: com.rnd.mapbox.network.Resource.Failure,
+    retry: (() -> Unit)? = null
+) {
+    when {
+        failure.isNetworkError -> toast(
+            "Please check your internet connection"
+        )
+        failure.errorCode == 401 -> {
+            /*if (this is LoginFragment) {
+                requireView().snackbar("You've entered incorrect email or password")
+            } else {
+                (this as BaseFragment<*, *, *>).logout()
+            }*/
+        }
+        else -> {
+            val error = failure.errorBody?.string().toString()
+            toast(error)
+        }
+    }
+}
